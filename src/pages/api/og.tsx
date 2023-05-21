@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 const og = (req: NextApiRequest, res: NextApiResponse) => {
   // replace with vercel prod URL
   // getting query params
-  const url = new URL(req.url!, "http://localhost:3000");
+  const url = new URL(req.url!, "https://bcard-five.vercel.app/");
   const username = url.searchParams.get("username");
   const title = url.searchParams.get("title");
   const imgSrc = url.searchParams.get("imgSrc");
