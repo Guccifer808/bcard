@@ -15,7 +15,6 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <SessionProvider session={session}>
       <Navbar />
-      {/* @ts-expect-error Server Component */}
       <Component {...pageProps} />
     </SessionProvider>
   );
