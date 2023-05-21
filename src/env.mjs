@@ -8,7 +8,7 @@ export const env = createEnv({
    */
   server: {
     DATABASE_URL: z.string().url(),
-    // NODE_ENV: z.enum(["development", "test", "production"]),
+    NODE_ENV: z.enum(["development", "test", "production"]),
     // NEXTAUTH_URL: z.preprocess(
     //   // This makes Vercel deployments not fail if you don't set NEXTAUTH_URL
     //   // Since NextAuth.js automatically uses the VERCEL_URL if present.
@@ -19,6 +19,8 @@ export const env = createEnv({
     // Add `.min(1) on ID and SECRET if you want to make sure they're not empty
     GOOGLE_CLIENT_ID: z.string(),
     GOOGLE_CLIENT_SECRET: z.string(),
+    DISCORD_CLIENT_SECRET: z.string(),
+    DISCORD_CLIENT_ID: z.string(),
   },
 
   /**
@@ -36,8 +38,10 @@ export const env = createEnv({
    */
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
-    // NODE_ENV: process.env.NODE_ENV,
+    NODE_ENV: process.env.NODE_ENV,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+    DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
+    DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
   },
 });

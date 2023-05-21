@@ -4,9 +4,7 @@ import { FC } from "react";
 import BusinessCard from "~/components/BusinessCard/BusinessCard";
 import { api } from "~/utils/api";
 
-interface SlugProps {}
-
-const Slug: FC<SlugProps> = () => {
+const Slug: FC = () => {
   const router = useRouter();
   const { slug } = router.query;
 

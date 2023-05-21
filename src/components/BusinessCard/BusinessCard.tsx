@@ -20,23 +20,17 @@ const BusinessCard: FC<BusinessCardProps> = ({ inputs, card }) => {
 
   const { data: sessionData } = useSession();
 
+  // const front = card
+  //   ? `http://localhost:3000/api/og?username=${card.name}&title=${card.title}&imgSrc=${card.imgSrc}`
+  //   : inputs &&
+  //     `http://localhost:3000/api/og?username=${sessionData?.user?.name}&title=${inputs.title}&imgSrc=${sessionData?.user?.image}`;
   const front = card
-    ? "http://localhost:3000/api/og" +
-      "?username=" +
-      card.name +
-      "&title=" +
-      card.title +
-      "&imgSrc=" +
-      card.imgSrc
+    ? `http://localhost:3000/api/og?username=${card.name}&title=${card.title}&imgSrc=${card.imgSrc}`
     : inputs &&
-      "http://localhost:3000/api/og" +
-        "?username=" +
-        sessionData?.user?.name +
-        "&title=" +
-        inputs.title +
-        "&imgSrc=" +
-        sessionData?.user?.image;
-
+      sessionData?.user?.name &&
+      sessionData?.user?.image &&
+      `http://localhost:3000/api/og?username=${sessionData.user.name}&title=${inputs.title}&imgSrc=${sessionData.user.image}`;
+  const imageUrl = front || ""; // Fallback value in case front is null or undefined
   return (
     <div className="card">
       <div className="card-back">
@@ -61,8 +55,8 @@ const BusinessCard: FC<BusinessCardProps> = ({ inputs, card }) => {
             <span className="property">name</span>
             <span className="operator">: </span>
             <span className="string">
-              {/* '{card ? card.name : sessionData?.user?.name}' */}'
-              {card ? card.title : inputs?.name}'
+              {/* &apos;{card ? card.title : inputs?.name}&apos; */}
+              {card ? `'${card.name}'` : `'${inputs?.name || ""}'`}
             </span>
             <span>,</span>
           </div>
@@ -71,7 +65,8 @@ const BusinessCard: FC<BusinessCardProps> = ({ inputs, card }) => {
             <span className="property">title</span>
             <span className="operator">: </span>
             <span className="string">
-              '{card ? card.title : inputs?.title}'
+              {/* &apos;{card ? card.title : inputs?.title}&apos; */}
+              {card ? `'${card.title}'` : `'${inputs?.title || ""}'`}
             </span>
             <span>,</span>
           </div>
@@ -80,7 +75,10 @@ const BusinessCard: FC<BusinessCardProps> = ({ inputs, card }) => {
             <span className="property">company</span>
             <span className="operator">: </span>
             <span className="string">
-              '{card ? card.title : inputs?.companyName}'
+              {/* &apos;{card ? card.title : inputs?.companyName}&apos; */}
+              {card
+                ? `'${card.companyName}'`
+                : `'${inputs?.companyName || ""}'`}
             </span>
             <span>,</span>
           </div>
@@ -94,7 +92,10 @@ const BusinessCard: FC<BusinessCardProps> = ({ inputs, card }) => {
               <span className="property">email</span>
               <span className="operator">: </span>
               <span className="string">
-                '{card ? card.email : sessionData?.user?.email}'
+                {/* &apos;{card ? card.email : sessionData?.user?.email}&apos; */}
+                {card
+                  ? `'${card.email}'`
+                  : `'${sessionData?.user?.email || ""}'`}
               </span>
               <span>,</span>
             </div>
@@ -102,7 +103,8 @@ const BusinessCard: FC<BusinessCardProps> = ({ inputs, card }) => {
               <span className="property">website</span>
               <span className="operator">:</span>
               <span className="string">
-                '{card ? card.website : inputs?.website}'
+                {/* &apos;{card ? card.website : inputs?.website}&apos; */}
+                {card ? `'${card.website}'` : `'${inputs?.website || ""}'`}
               </span>
             </div>
             <span>{"}"}</span>
@@ -111,7 +113,11 @@ const BusinessCard: FC<BusinessCardProps> = ({ inputs, card }) => {
         </code>
       </div>
       <div className="card-front">
-        <img className="h-[15rem] w-[30rem]" src={front} />
+        <img
+          className="h-[15rem] w-[30rem]"
+          src={imageUrl}
+          alt="front of the card"
+        />
       </div>
     </div>
   );

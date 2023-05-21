@@ -4,14 +4,22 @@ import { HiBookOpen, HiX } from "react-icons/hi";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 
-interface NavbarProps {}
-
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Navbar: FC<NavbarProps> = ({}) => {
+const Navbar: FC = ({}) => {
   const { data: sessionData } = useSession();
+
+  const handleSignOut = () => {
+    void signOut()
+      .then(() => {
+        // Perform any necessary side effects or cleanup here
+      })
+      .catch((error) => {
+        // Handle any potential errors here
+      });
+  };
 
   return (
     <Disclosure as="nav" className="h-16 bg-gray-800">
@@ -55,7 +63,7 @@ const Navbar: FC<NavbarProps> = ({}) => {
                         <span className="sr-only">Open user menu</span>
                         <img
                           className="h-8 w-8 rounded-full"
-                          src={sessionData.user!.image!}
+                          src={sessionData.user.image!}
                           alt=""
                         />
                       </Menu.Button>
@@ -104,7 +112,7 @@ const Navbar: FC<NavbarProps> = ({}) => {
                                 active ? "bg-gray-100" : "",
                                 "block w-full px-4 py-2 text-left text-sm text-gray-700"
                               )}
-                              onClick={() => signOut()}
+                              onClick={handleSignOut}
                             >
                               Sign out
                             </button>

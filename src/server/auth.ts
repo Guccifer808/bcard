@@ -73,4 +73,5 @@ export const getServerAuthSession = (ctx: {
   res: GetServerSidePropsContext["res"];
 }) => {
   return getServerSession(ctx.req, ctx.res, authOptions);
+  // return getServerSession(ctx.req, ctx.res, authOptions);
 };

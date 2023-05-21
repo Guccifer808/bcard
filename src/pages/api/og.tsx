@@ -1,12 +1,7 @@
 import { ImageResponse } from "@vercel/og";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export const config = {
-  runtime: "experimental-edge",
-};
-
-// vercel/og for image on card (Open Graph (OG) Image Generation)
-const og = async (req: NextApiRequest, res: NextApiResponse) => {
+const og = (req: NextApiRequest, res: NextApiResponse) => {
   // replace with vercel prod URL
   // getting query params
   const url = new URL(req.url!, "http://localhost:3000");
@@ -14,12 +9,12 @@ const og = async (req: NextApiRequest, res: NextApiResponse) => {
   const title = url.searchParams.get("title");
   const imgSrc = url.searchParams.get("imgSrc");
 
-  //on error
+  // on error
   if (!username) return res.status(400).json({ error: "username is required" });
 
   // returning img preview, styled with tailwind
-  //P.S. use flex on parent if there is children
-  return new ImageResponse(
+  // P.S. use flex on parent if there are children
+  const response = new ImageResponse(
     (
       <div
         style={{ fontFamily: "sans-serif" }}
@@ -45,9 +40,12 @@ const og = async (req: NextApiRequest, res: NextApiResponse) => {
 
       // turn off img cache for dev
       //   headers: {
-      //     "Cache-Control": "no-cache",
+      //     'Cache-Control': 'no-cache',
       //   },
     }
   );
+
+  return response;
 };
+
 export default og;

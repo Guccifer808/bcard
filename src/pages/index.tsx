@@ -18,17 +18,16 @@ const Home: NextPage = () => {
   });
 
   //publishing card to db
-
   const { mutate } = api.card.publishCard.useMutation({
-    onSuccess(card) {
+    onSuccess: (card) => {
       console.log("published");
-      router.push(`/c/${card.slug}`);
+      void router.push(`/c/${card.slug}`);
     },
   });
-  const publish = () => {
-    mutate(inputs);
-  };
 
+  const publish = () => {
+    void mutate(inputs);
+  };
   return (
     <>
       <Head>
@@ -44,7 +43,15 @@ const Home: NextPage = () => {
         {!sessionData && (
           <button
             className="rounded-full bg-black px-10 py-3 font-semibold text-white no-underline transition hover:bg-black/20"
-            onClick={sessionData ? () => signOut() : () => signIn("google")}
+            onClick={
+              sessionData
+                ? async () => {
+                    await signOut();
+                  }
+                : () => {
+                    void signIn("google");
+                  }
+            }
           >
             Sign In
           </button>
