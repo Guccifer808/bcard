@@ -4,7 +4,9 @@ import { SessionProvider } from "next-auth/react";
 
 import { api } from "~/utils/api";
 
+import "../components/BusinessCard/BusinessCard.css";
 import "~/styles/globals.css";
+import Navbar from "~/components/shared/Navbar";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -12,6 +14,8 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
+      <Navbar />
+      {/* @ts-expect-error Server Component */}
       <Component {...pageProps} />
     </SessionProvider>
   );
